@@ -1,4 +1,7 @@
 class LoginsController < ApplicationController
+
+  skip_before_action :require_login, only: [:new, :create]
+
   def create
     if user = User.authenticate(params[:usersname], params[:password])
       session[:current_user_id] = user.id
@@ -11,4 +14,5 @@ class LoginsController < ApplicationController
     @_current_user = nil
     redirect_to root_url
   end
+
 end
